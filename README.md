@@ -10,9 +10,9 @@ Akun berikut dibuat otomatis oleh `DatabaseSeeder` saat menjalankan `php artisan
 
 | Role | Nama | Email | Kata Sandi | Hak Akses |
 | :--- | :--- | :--- | :--- | :--- |
-| **Superadmin (`superadmin`)** | Budi Santoso (Superadmin) | `superadmin@kasirkita.id` | `password123` | Akses penuh ke seluruh menu: Dashboard, Kasir, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, Pengguna & Log Audit, Pengaturan Toko, serta Refund. |
-| **Admin (`admin`)** | Andi Wijaya (Admin) | `admin@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, serta pembatalan/refund transaksi. |
-| **Kasir (`kasir`)** | Siti Rahma (Kasir) | `kasir@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi (miliknya), Cetak Struk, dan pembatalan transaksi `pending` miliknya. |
+| **Superadmin (`superadmin`)** | Budi Santoso | `superadmin@kasirkita.id` | `password123` | Akses penuh ke seluruh menu: Dashboard, Kasir, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, Pengguna & Log Audit, Pengaturan Toko, serta Refund. |
+| **Admin (`admin`)** | Andi Wijaya | `admin@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, serta pembatalan/refund transaksi. |
+| **Kasir (`kasir`)** | Siti Rahma | `kasir@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi (miliknya), Cetak Struk, dan pembatalan transaksi `pending` miliknya. |
 
 > **Penting:** Segera ubah kata sandi ketiga akun di atas sebelum digunakan di lingkungan production.
 

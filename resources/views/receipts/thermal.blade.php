@@ -83,7 +83,10 @@
         <div>
             <div class="row"><span>No:</span><span class="bold">{{ $transaction->transaction_number }}</span></div>
             <div class="row"><span>Tgl:</span><span>{{ $transaction->created_at->format('d/m/Y H:i') }}</span></div>
-            <div class="row"><span>Kasir:</span><span>{{ $transaction->user?->name ?? '-' }}</span></div>
+            @php
+                $cashierName = trim((string) preg_replace('/\s*\([^)]*\)\s*$/', '', (string) ($transaction->user?->name ?? '-')));
+            @endphp
+            <div class="row"><span>Kasir:</span><span>{{ $cashierName ?: '-' }}</span></div>
         </div>
 
         <div class="divider"></div>

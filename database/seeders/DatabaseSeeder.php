@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         $superadmin = User::query()->updateOrCreate(
             ['email' => 'superadmin@kasirkita.id'],
             [
-                'name' => 'Budi Santoso (Superadmin)',
+                'name' => 'Budi Santoso',
                 'password' => Hash::make('password123'),
                 'role' => UserRole::Superadmin,
                 'phone' => '081111111111',
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         User::query()->updateOrCreate(
             ['email' => 'admin@kasirkita.id'],
             [
-                'name' => 'Andi Wijaya (Admin)',
+                'name' => 'Andi Wijaya',
                 'password' => Hash::make('password123'),
                 'role' => UserRole::Admin,
                 'phone' => '081333333333',
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         User::query()->updateOrCreate(
             ['email' => 'kasir@kasirkita.id'],
             [
-                'name' => 'Siti Rahma (Kasir)',
+                'name' => 'Siti Rahma',
                 'password' => Hash::make('password123'),
                 'role' => UserRole::Kasir,
                 'phone' => '082222222222',
