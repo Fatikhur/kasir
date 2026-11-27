@@ -14,11 +14,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
-#[Title('Pengguna & Log Audit')]
+#[Title('Manajemen Pengguna')]
 class UserAndAuditManager extends Component
 {
-    use WithPagination;
-
     public bool $showUserModal = false;
 
     public ?int $editingUserId = null;
@@ -136,11 +134,9 @@ class UserAndAuditManager extends Component
     public function render()
     {
         $users = User::query()->orderBy('name')->get();
-        $auditLogs = AuditLog::query()->with('user')->latest()->paginate(15);
 
         return view('livewire.user-and-audit-manager', [
             'users' => $users,
-            'auditLogs' => $auditLogs,
         ]);
     }
 }

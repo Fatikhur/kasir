@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaymentWebhookController;
 use App\Http\Controllers\ReceiptController;
+use App\Livewire\AuditLogViewer;
 use App\Livewire\Dashboard;
 use App\Livewire\PosTerminal;
 use App\Livewire\ProductManager;
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'active'])->group(function () {
     // Superadmin-only Routes
     Route::middleware('role:superadmin')->group(function () {
         Route::get('/pengguna', UserAndAuditManager::class)->name('users.index');
+        Route::get('/audit-log', AuditLogViewer::class)->name('audit-logs.index');
         Route::get('/pengaturan', StoreSettingsManager::class)->name('settings.index');
     });
 });

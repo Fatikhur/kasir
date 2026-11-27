@@ -50,7 +50,7 @@ Akun berikut dibuat otomatis oleh `DatabaseSeeder` saat menjalankan `php artisan
 6. **Laporan Penjualan (`/laporan`) — Admin & Superadmin**
    - Filter harian, mingguan, bulanan, atau rentang tanggal kustom, estimasi laba (berdasarkan snapshot harga modal vs harga jual), rincian per metode pembayaran & kategori, produk terlaris, serta export CSV.
    - Hanya menghitung transaksi dengan status `paid` dan `completed`.
-7. **Pengguna, Log Audit (`/pengguna`), & Pengaturan Toko (`/pengaturan`) — Khusus Superadmin**
+7. **Manajemen Pengguna (`/pengguna`), Audit Log (`/audit-log`), & Pengaturan Toko (`/pengaturan`) — Khusus Superadmin**
    - Pengelolaan akun pengguna, pemantauan aktivitas penting di `audit_logs`, pengaturan identitas toko pada struk, serta status integrasi QRIS.
 
 
