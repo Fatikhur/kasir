@@ -68,6 +68,7 @@ class ProductAndRbacTest extends TestCase
         $this->get(route('stock.index'))->assertForbidden();
         $this->get(route('reports.index'))->assertForbidden();
         $this->get(route('users.index'))->assertForbidden();
+        $this->get(route('audit-logs.index'))->assertForbidden();
         $this->get(route('settings.index'))->assertForbidden();
     }
 
@@ -85,6 +86,7 @@ class ProductAndRbacTest extends TestCase
         $this->get(route('reports.index'))->assertOk();
 
         $this->get(route('users.index'))->assertForbidden();
+        $this->get(route('audit-logs.index'))->assertForbidden();
         $this->get(route('settings.index'))->assertForbidden();
     }
 
@@ -101,6 +103,7 @@ class ProductAndRbacTest extends TestCase
         $this->get(route('stock.index'))->assertOk();
         $this->get(route('reports.index'))->assertOk();
         $this->get(route('users.index'))->assertOk();
+        $this->get(route('audit-logs.index'))->assertOk();
         $this->get(route('settings.index'))->assertOk();
     }
 }
