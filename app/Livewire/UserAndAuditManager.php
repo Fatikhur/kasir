@@ -78,7 +78,7 @@ class UserAndAuditManager extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->editingUserId)],
             'phone' => ['nullable', 'string', 'max:30'],
-            'role' => ['required', 'in:owner,kasir'],
+            'role' => ['required', 'in:superadmin,admin,kasir'],
             'is_active' => ['boolean'],
         ];
 

@@ -30,13 +30,24 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $owner = User::query()->updateOrCreate(
-            ['email' => 'owner@kasirkita.id'],
+        $superadmin = User::query()->updateOrCreate(
+            ['email' => 'superadmin@kasirkita.id'],
             [
-                'name' => 'Budi Santoso (Pemilik)',
+                'name' => 'Budi Santoso (Superadmin)',
                 'password' => Hash::make('password123'),
-                'role' => UserRole::Owner,
+                'role' => UserRole::Superadmin,
                 'phone' => '081111111111',
+                'is_active' => true,
+            ]
+        );
+
+        User::query()->updateOrCreate(
+            ['email' => 'admin@kasirkita.id'],
+            [
+                'name' => 'Andi Wijaya (Admin)',
+                'password' => Hash::make('password123'),
+                'role' => UserRole::Admin,
+                'phone' => '081333333333',
                 'is_active' => true,
             ]
         );
@@ -108,7 +119,7 @@ class DatabaseSeeder extends Seeder
             if ($product->wasRecentlyCreated && $item['stock'] > 0) {
                 InventoryMovement::query()->create([
                     'product_id' => $product->id,
-                    'user_id' => $owner->id,
+                    'user_id' => $superadmin->id,
                     'type' => InventoryMovementType::In,
                     'quantity_change' => $item['stock'],
                     'stock_before' => 0,

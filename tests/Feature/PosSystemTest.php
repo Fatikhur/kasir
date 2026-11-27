@@ -33,7 +33,7 @@ class PosSystemTest extends TestCase
     {
         parent::setUp();
 
-        $this->owner = User::factory()->create(['role' => UserRole::Owner, 'is_active' => true]);
+        $this->owner = User::factory()->create(['role' => UserRole::Admin, 'is_active' => true]);
         $this->kasir = User::factory()->create(['role' => UserRole::Kasir, 'is_active' => true]);
 
         $category = Category::query()->create(['name' => 'Minuman', 'slug' => 'minuman', 'is_active' => true]);

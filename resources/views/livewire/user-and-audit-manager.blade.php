@@ -112,7 +112,8 @@
                             <label class="block text-xs font-medium text-slate-700 mb-1">Role *</label>
                             <select wire:model="role" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">
                                 <option value="kasir">Kasir</option>
-                                <option value="owner">Pemilik / Admin</option>
+                                <option value="admin">Admin</option>
+                                <option value="superadmin">Superadmin</option>
                             </select>
                         </div>
                         <div>

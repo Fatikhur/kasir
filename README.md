@@ -10,10 +10,11 @@ Akun berikut dibuat otomatis oleh `DatabaseSeeder` saat menjalankan `php artisan
 
 | Role | Nama | Email | Kata Sandi | Hak Akses |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pemilik / Admin (`owner`)** | Budi Santoso (Pemilik) | `owner@kasirkita.id` | `password123` | Akses penuh: Dashboard, Kasir, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, Pengguna & Log Audit, Pengaturan Toko, serta Refund. |
+| **Superadmin (`superadmin`)** | Budi Santoso (Superadmin) | `superadmin@kasirkita.id` | `password123` | Akses penuh ke seluruh menu: Dashboard, Kasir, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, Pengguna & Log Audit, Pengaturan Toko, serta Refund. |
+| **Admin (`admin`)** | Andi Wijaya (Admin) | `admin@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi, Manajemen Produk, Manajemen Stok, Laporan Penjualan, serta pembatalan/refund transaksi. |
 | **Kasir (`kasir`)** | Siti Rahma (Kasir) | `kasir@kasirkita.id` | `password123` | Dashboard, Kasir / POS, Riwayat Transaksi (miliknya), Cetak Struk, dan pembatalan transaksi `pending` miliknya. |
 
-> **Penting:** Segera ubah kata sandi kedua akun di atas sebelum digunakan di lingkungan production.
+> **Penting:** Segera ubah kata sandi ketiga akun di atas sebelum digunakan di lingkungan production.
 
 ---
 
@@ -36,20 +37,20 @@ Akun berikut dibuat otomatis oleh `DatabaseSeeder` saat menjalankan `php artisan
    - Pencarian produk berdasarkan nama, SKU, atau scan barcode (`Enter`).
    - Filter kategori, keranjang interaktif, diskon (Rp), dan validasi agar penjualan tidak melebihi stok tersedia.
    - Pembayaran **Tunai** (nominal cepat & perhitungan kembalian otomatis) dan **QRIS dinamis** melalui payment gateway.
-3. **Manajemen Produk (`/produk`) — Khusus Owner**
+3. **Manajemen Produk (`/produk`) — Admin & Superadmin**
    - Tambah, edit, aktif/nonaktifkan produk, upload foto produk, pengelolaan kategori, validasi SKU & barcode unik, serta import/export CSV.
    - Perubahan harga otomatis tercatat ke `audit_logs`.
-4. **Manajemen Stok (`/stok`) — Khusus Owner**
+4. **Manajemen Stok (`/stok`) — Admin & Superadmin**
    - Stok otomatis berkurang saat transaksi berhasil dibayar (menggunakan transaksi database & `lockForUpdate()` untuk mencegah stok negatif).
    - Penyesuaian stok manual dengan alasan wajib, peringatan stok menipis & habis, serta riwayat pergerakan stok (`inventory_movements`).
 5. **Riwayat Transaksi (`/transaksi`) & Struk Thermal**
    - Pencarian nomor transaksi/kasir, filter tanggal, metode pembayaran, dan status pembayaran.
    - Cetak ulang struk thermal ukuran **58mm** dan **80mm** (`/transaksi/{id}/struk`).
-   - Pembatalan dan refund (khusus Owner) dengan pencatatan audit dan opsi pengembalian stok.
-6. **Laporan Penjualan (`/laporan`) — Khusus Owner**
+   - Pembatalan dan refund (Admin & Superadmin) dengan pencatatan audit dan opsi pengembalian stok.
+6. **Laporan Penjualan (`/laporan`) — Admin & Superadmin**
    - Filter harian, mingguan, bulanan, atau rentang tanggal kustom, estimasi laba (berdasarkan snapshot harga modal vs harga jual), rincian per metode pembayaran & kategori, produk terlaris, serta export CSV.
    - Hanya menghitung transaksi dengan status `paid` dan `completed`.
-7. **Pengguna, Log Audit (`/pengguna`), & Pengaturan Toko (`/pengaturan`) — Khusus Owner**
+7. **Pengguna, Log Audit (`/pengguna`), & Pengaturan Toko (`/pengaturan`) — Khusus Superadmin**
    - Pengelolaan akun pengguna, pemantauan aktivitas penting di `audit_logs`, pengaturan identitas toko pada struk, serta status integrasi QRIS.
 
 

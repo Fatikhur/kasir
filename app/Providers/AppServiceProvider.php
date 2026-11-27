@@ -23,14 +23,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(Transaction::class, TransactionPolicy::class);
 
-        $ownerOnly = fn (User $user): bool => $user->role === UserRole::Owner;
+        $adminOrSuperadmin = fn (User $user): bool => $user->isAdminOrSuperadmin();
+        $superadminOnly = fn (User $user): bool => $user->isSuperadmin();
 
-        Gate::define('manage-products', $ownerOnly);
-        Gate::define('manage-stock', $ownerOnly);
-        Gate::define('manage-reports', $ownerOnly);
-        Gate::define('manage-users', $ownerOnly);
-        Gate::define('manage-settings', $ownerOnly);
-        Gate::define('view-audit-logs', $ownerOnly);
+        Gate::define('manage-products', $adminOrSuperadmin);
+        Gate::define('manage-stock', $adminOrSuperadmin);
+        Gate::define('manage-reports', $adminOrSuperadmin);
+        Gate::define('manage-users', $superadminOnly);
+        Gate::define('manage-settings', $superadminOnly);
+        Gate::define('view-audit-logs', $superadminOnly);
 
         RateLimiter::for('pos-checkout', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());

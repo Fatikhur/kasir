@@ -109,7 +109,7 @@ class TransactionHistory extends Component
                 session()->flash('success', "Transaksi {$transaction->transaction_number} berhasil dibatalkan.");
             } elseif ($this->actionType === 'refund') {
                 if (! $user->can('refund', $transaction)) {
-                    abort(403, 'Hanya pemilik toko yang dapat melakukan refund.');
+                    abort(403, 'Hanya Admin atau Superadmin yang dapat melakukan refund.');
                 }
                 $transactionService->refundTransaction($transaction, $user, $this->actionReason, $this->restockItems);
                 session()->flash('success', "Refund transaksi {$transaction->transaction_number} berhasil diproses.");
@@ -135,7 +135,7 @@ class TransactionHistory extends Component
 
         $transactions = Transaction::query()
             ->with(['user', 'latestPayment'])
-            ->when(! $user->isOwner(), fn ($q) => $q->where('user_id', $user->id))
+            ->when(! $user->isAdminOrSuperadmin(), fn ($q) => $q->where('user_id', $user->id))
             ->when(trim($this->search) !== '', function ($q) {
                 $term = '%'.trim($this->search).'%';
                 $q->where(function ($sub) use ($term) {

@@ -15,7 +15,7 @@ class TransactionPolicy
 
     public function view(User $user, Transaction $transaction): bool
     {
-        if ($user->role === UserRole::Owner) {
+        if ($user->isAdminOrSuperadmin()) {
             return true;
         }
 
@@ -24,7 +24,7 @@ class TransactionPolicy
 
     public function cancel(User $user, Transaction $transaction): bool
     {
-        if ($user->role === UserRole::Owner) {
+        if ($user->isAdminOrSuperadmin()) {
             return $transaction->canBeCancelled();
         }
 
@@ -35,6 +35,6 @@ class TransactionPolicy
 
     public function refund(User $user, Transaction $transaction): bool
     {
-        return $user->role === UserRole::Owner && $transaction->canBeRefunded();
+        return $user->isAdminOrSuperadmin() && $transaction->canBeRefunded();
     }
 }

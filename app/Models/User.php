@@ -28,14 +28,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function isOwner(): bool
+    public function isSuperadmin(): bool
     {
-        return $this->role === UserRole::Owner;
+        return $this->role === UserRole::Superadmin;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::Admin;
     }
 
     public function isKasir(): bool
     {
         return $this->role === UserRole::Kasir;
+    }
+
+    public function isAdminOrSuperadmin(): bool
+    {
+        return in_array($this->role, [UserRole::Superadmin, UserRole::Admin], true);
     }
 
     public function transactions(): HasMany

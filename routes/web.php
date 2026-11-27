@@ -28,18 +28,22 @@ Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-// Authenticated Routes (Owner & Kasir)
+// Authenticated Routes (Superadmin, Admin & Kasir)
 Route::middleware(['auth', 'active'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/kasir', PosTerminal::class)->name('pos.index');
     Route::get('/transaksi', TransactionHistory::class)->name('transactions.index');
     Route::get('/transaksi/{transaction}/struk', [ReceiptController::class, 'show'])->name('transactions.receipt');
 
-    // Owner-only Routes
-    Route::middleware('role:owner')->group(function () {
+    // Admin & Superadmin Routes
+    Route::middleware('role:superadmin,admin')->group(function () {
         Route::get('/produk', ProductManager::class)->name('products.index');
         Route::get('/stok', StockManager::class)->name('stock.index');
         Route::get('/laporan', SalesReport::class)->name('reports.index');
+    });
+
+    // Superadmin-only Routes
+    Route::middleware('role:superadmin')->group(function () {
         Route::get('/pengguna', UserAndAuditManager::class)->name('users.index');
         Route::get('/pengaturan', StoreSettingsManager::class)->name('settings.index');
     });

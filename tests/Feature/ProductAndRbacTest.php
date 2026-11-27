@@ -15,12 +15,12 @@ class ProductAndRbacTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_owner_can_create_and_edit_product_with_unique_sku_validation(): void
+    public function test_admin_can_create_and_edit_product_with_unique_sku_validation(): void
     {
-        $owner = User::factory()->create(['role' => UserRole::Owner, 'is_active' => true]);
+        $admin = User::factory()->create(['role' => UserRole::Admin, 'is_active' => true]);
         $category = Category::query()->create(['name' => 'Snack', 'slug' => 'snack', 'is_active' => true]);
 
-        $this->actingAs($owner);
+        $this->actingAs($admin);
 
         Livewire::test(ProductManager::class)
             ->call('openCreateModal')
@@ -54,7 +54,7 @@ class ProductAndRbacTest extends TestCase
         ]);
     }
 
-    public function test_kasir_cannot_access_owner_only_routes(): void
+    public function test_kasir_cannot_access_admin_or_superadmin_routes(): void
     {
         $kasir = User::factory()->create(['role' => UserRole::Kasir, 'is_active' => true]);
 
@@ -69,5 +69,38 @@ class ProductAndRbacTest extends TestCase
         $this->get(route('reports.index'))->assertForbidden();
         $this->get(route('users.index'))->assertForbidden();
         $this->get(route('settings.index'))->assertForbidden();
+    }
+
+    public function test_admin_can_access_operations_but_not_superadmin_routes(): void
+    {
+        $admin = User::factory()->create(['role' => UserRole::Admin, 'is_active' => true]);
+
+        $this->actingAs($admin);
+
+        $this->get(route('dashboard'))->assertOk();
+        $this->get(route('pos.index'))->assertOk();
+        $this->get(route('transactions.index'))->assertOk();
+        $this->get(route('products.index'))->assertOk();
+        $this->get(route('stock.index'))->assertOk();
+        $this->get(route('reports.index'))->assertOk();
+
+        $this->get(route('users.index'))->assertForbidden();
+        $this->get(route('settings.index'))->assertForbidden();
+    }
+
+    public function test_superadmin_can_access_all_routes(): void
+    {
+        $superadmin = User::factory()->create(['role' => UserRole::Superadmin, 'is_active' => true]);
+
+        $this->actingAs($superadmin);
+
+        $this->get(route('dashboard'))->assertOk();
+        $this->get(route('pos.index'))->assertOk();
+        $this->get(route('transactions.index'))->assertOk();
+        $this->get(route('products.index'))->assertOk();
+        $this->get(route('stock.index'))->assertOk();
+        $this->get(route('reports.index'))->assertOk();
+        $this->get(route('users.index'))->assertOk();
+        $this->get(route('settings.index'))->assertOk();
     }
 }
