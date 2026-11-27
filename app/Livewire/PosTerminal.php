@@ -29,11 +29,11 @@ class PosTerminal extends Component
     /** @var array<int, array{product_id: int, name: string, sku: string, unit: string, price: int, stock: int, quantity: int}> */
     public array $cart = [];
 
-    public int $discountAmount = 0;
+    public int|string|null $discountAmount = 0;
 
     public string $paymentMethod = 'cash';
 
-    public int $cashReceived = 0;
+    public int|string|null $cashReceived = 0;
 
     public string $notes = '';
 
@@ -181,7 +181,9 @@ class PosTerminal extends Component
     #[Computed]
     public function sanitizedDiscount(): int
     {
-        return max(0, min($this->discountAmount, $this->subtotal));
+        $discount = is_numeric($this->discountAmount) ? (int) $this->discountAmount : 0;
+
+        return max(0, min($discount, $this->subtotal));
     }
 
     #[Computed]
@@ -193,7 +195,9 @@ class PosTerminal extends Component
     #[Computed]
     public function changeAmount(): int
     {
-        return max(0, $this->cashReceived - $this->total);
+        $cash = is_numeric($this->cashReceived) ? (int) $this->cashReceived : 0;
+
+        return max(0, $cash - $this->total);
     }
 
     #[Computed]
@@ -220,11 +224,13 @@ class PosTerminal extends Component
 
         try {
             if ($this->paymentMethod === 'cash') {
+                $cash = is_numeric($this->cashReceived) ? (int) $this->cashReceived : 0;
+
                 $tx = $transactionService->createCashTransaction(
                     cashier: Auth::user(),
                     items: $items,
                     discountAmount: $this->sanitizedDiscount,
-                    cashReceived: $this->cashReceived,
+                    cashReceived: $cash,
                     notes: $this->notes ?: null,
                 );
 

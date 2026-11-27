@@ -136,7 +136,7 @@
 
             <div class="flex items-center justify-between gap-3">
                 <label for="discountAmount" class="text-slate-600">Diskon (Rp)</label>
-                <input id="discountAmount" type="number" min="0" wire:model.live="discountAmount"
+                <input id="discountAmount" type="number" min="0" inputmode="numeric" wire:model.live.debounce.300ms="discountAmount"
                        class="w-32 text-right rounded-md border border-slate-300 px-2.5 py-1 text-sm tabular-nums focus:border-emerald-600 outline-none">
             </div>
 
@@ -164,7 +164,7 @@
                 <div class="space-y-2.5">
                     <div>
                         <label for="cashReceived" class="block text-xs font-medium text-slate-700 mb-1">Uang Diterima (Rp)</label>
-                        <input id="cashReceived" type="number" min="0" wire:model.live="cashReceived"
+                        <input id="cashReceived" type="number" min="0" inputmode="numeric" wire:model.live.debounce.300ms="cashReceived"
                                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold tabular-nums focus:border-emerald-600 outline-none">
                     </div>
 
@@ -183,7 +183,7 @@
 
                     <div class="flex justify-between items-center rounded-lg bg-slate-50 border border-slate-200 px-3 py-2 text-sm">
                         <span class="text-slate-600">Kembalian</span>
-                        <span class="font-bold tabular-nums {{ $cashReceived >= $this->total ? 'text-emerald-700' : 'text-rose-600' }}">
+                        <span class="font-bold tabular-nums {{ (is_numeric($cashReceived) ? (int) $cashReceived : 0) >= $this->total ? 'text-emerald-700' : 'text-rose-600' }}">
                             Rp {{ number_format($this->changeAmount, 0, ',', '.') }}
                         </span>
                     </div>

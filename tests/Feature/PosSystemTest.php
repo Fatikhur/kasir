@@ -6,6 +6,7 @@ use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Enums\TransactionStatus;
 use App\Enums\UserRole;
+use App\Livewire\PosTerminal;
 use App\Livewire\SalesReport;
 use App\Models\Category;
 use App\Models\Product;
@@ -256,5 +257,22 @@ class PosSystemTest extends TestCase
         $service->refundTransaction($paidTx->fresh(), $this->owner, 'Barang dikembalikan pelanggan', true);
         $this->assertEquals(10, $this->product->fresh()->stock);
         $this->assertEquals(TransactionStatus::Refunded, $paidTx->fresh()->status);
+    }
+
+    public function test_pos_terminal_handles_cleared_discount_and_cash_inputs_without_error(): void
+    {
+        $this->actingAs($this->kasir);
+
+        Livewire::test(PosTerminal::class)
+            ->call('addToCart', $this->product->id)
+            ->set('discountAmount', '')
+            ->set('cashReceived', '')
+            ->assertHasNoErrors()
+            ->set('discountAmount', '1000')
+            ->set('cashReceived', '10000')
+            ->call('processCheckout')
+            ->assertHasNoErrors();
+
+        $this->assertEquals(9, $this->product->fresh()->stock);
     }
 }
