@@ -52,50 +52,6 @@ Akun berikut dibuat otomatis oleh `DatabaseSeeder` saat menjalankan `php artisan
 7. **Pengguna, Log Audit (`/pengguna`), & Pengaturan Toko (`/pengaturan`) — Khusus Owner**
    - Pengelolaan akun pengguna, pemantauan aktivitas penting di `audit_logs`, pengaturan identitas toko pada struk, serta status integrasi QRIS.
 
----
-
-## Instalasi & Menjalankan Secara Lokal
-
-1. **Clone / masuk ke direktori proyek**
-   ```bash
-   cd "d:\Projek pribadi\kasir"
-   ```
-
-2. **Install dependensi PHP & Frontend**
-   ```bash
-   composer install
-   npm install
-   npm run build
-   ```
-
-3. **Konfigurasi Environment**
-   - Salin `.env.example` ke `.env` (jika belum ada) dan generate application key:
-     ```bash
-     php artisan key:generate
-     ```
-   - Sesuaikan koneksi database MySQL pada `.env`:
-     ```env
-     DB_CONNECTION=mysql
-     DB_HOST=127.0.0.1
-     DB_PORT=3306
-     DB_DATABASE=kasir
-     DB_USERNAME=root
-     DB_PASSWORD=
-     ```
-
-4. **Jalankan Migrasi, Seeder, dan Storage Link**
-   ```bash
-   php artisan migrate:fresh --seed
-   php artisan storage:link
-   ```
-
-5. **Jalankan Server Lokal**
-   ```bash
-   php artisan serve
-   ```
-   Buka `http://127.0.0.1:8000` di browser dan masuk menggunakan akun uji coba di atas.
-
----
 
 ## Konfigurasi Pembayaran QRIS (Midtrans / Xendit)
 
